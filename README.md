@@ -56,7 +56,7 @@ An interactive web app to learn and practice typing on the Keyball44:
 |-----|-----|------|
 | Left Inner | Escape | — |
 | Left Middle | Space | NAV |
-| Left Outer | Tab | MOUSE |
+| Left Outer | Tab | SCROLL |
 | Right Inner | Enter | SYM |
 | Right Middle | Backspace | NUM |
 | Right Outer | Delete | FUN |

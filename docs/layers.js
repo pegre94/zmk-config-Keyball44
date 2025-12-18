@@ -46,7 +46,7 @@ const LAYERS = {
             37: { tap: '', hold: '' },     // none
             38: { tap: 'ESC', hold: 'MEDIA' },
             39: { tap: 'SPC', hold: 'NAV' },
-            40: { tap: 'TAB', hold: 'MOUSE' },
+            40: { tap: 'TAB', hold: 'SCROLL' },
             41: { tap: 'ENT', hold: 'SYM' },
             42: { tap: 'BSPC', hold: 'NUM' },
             43: { tap: 'DEL', hold: 'FUN' }  // Trackball key

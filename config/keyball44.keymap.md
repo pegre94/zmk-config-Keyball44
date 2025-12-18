@@ -29,7 +29,7 @@ Miryoku-style layout adapted for Keyball44 with trackball support.
 ├────────┼────────┼────────┼────────┼────────┼────────┤          ├────────┼────────┼────────┼────────┼────────┼────────┤
 │  ___   │   Z    │   X    │   C    │   V    │   B    │          │   N    │   M    │   ,    │   .    │   /    │  ___   │
 ├────────┼────────┼────────┼────────┼────────┼────────┘          └────────┼────────┼────────┼────────┼────────┼────────┤
-│  ___   │  ___   │ESC/MED │SPC/NAV │TAB/MOU │                   │ENT/SYM │BSPC/NUM│        │        │        │  ___   │
+│  ___   │  ___   │ESC/MED │SPC/NAV │TAB/SCR │                   │ENT/SYM │BSPC/NUM│        │        │        │  ___   │
 └────────┴────────┴────────┴────────┴────────┘                   └────────┴────────┴────────┴────────┴────────┴────────┘
 ```
 
@@ -46,7 +46,7 @@ Miryoku-style layout adapted for Keyball44 with trackball support.
 **Thumb keys - Miryoku style (tap/hold):**
 - `ESC/MED` = Escape (tap) / MEDIA layer (hold)
 - `SPC/NAV` = Space (tap) / NAV layer (hold)
-- `TAB/MOU` = Tab (tap) / MOUSE layer (hold)
+- `TAB/SCR` = Tab (tap) / SCROLL layer (hold)
 - `ENT/SYM` = Enter (tap) / SYM layer (hold)
 - `BSPC/NUM` = Backspace (tap) / NUM layer (hold)
 - `DEL/FUN` = Delete (tap) / FUN layer (hold) ← on trackball key

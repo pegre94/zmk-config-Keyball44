@@ -53,15 +53,15 @@ const LAYER_KEYS = {
     'Delete': { pos: 43, layer: 6 }    // FUN
 };
 
-// Layer signal keys (F19-F24 sent by ZMK macros when layer is held)
-// Using F19-F24 to avoid macOS brightness/media key conflicts (F13-F15)
+// Layer signal keys (F13, F16-F20 sent by ZMK macros when layer is held)
+// Avoiding F14/F15 (macOS brightness) and F21-F24 (not working)
 const LAYER_SIGNAL_KEYS = {
-    'F19': 1,  // NAV
-    'F20': 3,  // MEDIA
-    'F21': 2,  // MOUSE
-    'F22': 5,  // SYM
-    'F23': 4,  // NUM
-    'F24': 6   // FUN
+    'F13': 1,  // NAV
+    'F16': 3,  // MEDIA
+    'F17': 2,  // MOUSE
+    'F18': 5,  // SYM
+    'F19': 4,  // NUM
+    'F20': 6   // FUN
 };
 
 // Keys that indicate a specific layer is active (fallback detection)

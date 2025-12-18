@@ -8,9 +8,14 @@ ZMK firmware configuration for the Keyball44 split keyboard with integrated trac
 
 An interactive web app to learn and practice typing on the Keyball44:
 - **Layout Viewer** - Visual keyboard with real-time key press detection
-- **Progressive Lessons** - Learn touch typing step by step (TypingClub style)
-- **Typing Tests** - Practice with quotes, code, vim commands, and more (MonkeyType style)
+- **Progressive Lessons** - Learn touch typing step by step 
+- **Typing Tests** - Practice with quotes, code, vim commands, and more 
 - **Layer Visualization** - See all 7 layers with key mappings
+
+<p align="center">
+  <img src="screenshots/typing_practice.png" alt="Typing Practice" width="48%">
+  <img src="screenshots/lessons.png" alt="Lessons" width="48%">
+</p>
 
 ---
 

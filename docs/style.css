@@ -58,6 +58,18 @@ h1 {
     color: #fff;
 }
 
+.layer-btn.layer-active-glow {
+    background: #06b6d4;
+    border-color: #22d3ee;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.7);
+    animation: pulse-glow 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-glow {
+    from { box-shadow: 0 0 15px rgba(6, 182, 212, 0.5); }
+    to { box-shadow: 0 0 25px rgba(6, 182, 212, 0.9); }
+}
+
 /* Keyboard Container */
 .keyboard {
     display: flex;
@@ -215,6 +227,16 @@ h1 {
 /* Pressed key */
 .key.pressed {
     background: linear-gradient(145deg, #fca5a5 0%, #ef4444 100%) !important;
+}
+
+/* Active key press (real-time detection) */
+.key.active-press {
+    background: linear-gradient(145deg, #67e8f9 0%, #06b6d4 100%) !important;
+    box-shadow: 
+        0 1px 0 #0891b2,
+        0 2px 4px rgba(0, 0, 0, 0.3),
+        0 0 25px rgba(6, 182, 212, 0.7) !important;
+    transform: translateY(calc(var(--offset) + 3px)) rotate(var(--rotate)) scale(0.95);
 }
 
 /* Legend */

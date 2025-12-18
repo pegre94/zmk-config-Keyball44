@@ -189,7 +189,7 @@
 &none           &kp Q         &kp W        &kp E         &kp R         &kp T                      &kp Y          &kp U         &kp I         &kp O        &kp P            &none
 &none           &mt LGUI A    &mt LALT S   &mt LCTRL D   &mt LSHFT F   &kp G                      &kp H          &mt RSHFT J   &mt RCTRL K   &mt RALT L   &mt RGUI SQT     &none
 &none           &kp Z         &kp X        &kp C         &kp V         &kp B                      &kp N          &kp M         &kp COMMA     &kp DOT      &kp SLASH        &none
-&none           &none         &ht_media 0 ESCAPE &ht_nav 0 SPACE &ht_scroll 0 TAB            &ht_sym 0 ENTER  &ht_num 0 BACKSPACE                                                    &ht_fun 0 DELETE
+&none           &none         &ht_media 0 ESCAPE &ht_nav 0 SPACE &lt SCROLL TAB            &ht_sym 0 ENTER  &ht_num 0 BACKSPACE                                                    &ht_fun 0 DELETE
             >;
         };
 

@@ -54,12 +54,12 @@ An interactive web app to learn and practice typing on the Keyball44:
 
 | Key | Tap | Hold |
 |-----|-----|------|
-| Left Inner | Escape | — |
+| Left Inner | Escape | MEDIA |
 | Left Middle | Space | NAV |
 | Left Outer | Tab | SCROLL |
 | Right Inner | Enter | SYM |
 | Right Middle | Backspace | NUM |
-| Right Outer | Delete | FUN |
+| Right Outer (Trackball) | Delete | FUN |
 
 ---
 

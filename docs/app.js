@@ -53,14 +53,15 @@ const LAYER_KEYS = {
     'Delete': { pos: 43, layer: 6 }    // FUN
 };
 
-// Layer signal keys (F13-F18 sent by ZMK macros when layer is held)
+// Layer signal keys (F19-F24 sent by ZMK macros when layer is held)
+// Using F19-F24 to avoid macOS brightness/media key conflicts (F13-F15)
 const LAYER_SIGNAL_KEYS = {
-    'F13': 1,  // NAV
-    'F14': 3,  // MEDIA
-    'F15': 2,  // MOUSE
-    'F16': 5,  // SYM
-    'F17': 4,  // NUM
-    'F18': 6   // FUN
+    'F19': 1,  // NAV
+    'F20': 3,  // MEDIA
+    'F21': 2,  // MOUSE
+    'F22': 5,  // SYM
+    'F23': 4,  // NUM
+    'F24': 6   // FUN
 };
 
 // Keys that indicate a specific layer is active (fallback detection)
@@ -72,6 +73,21 @@ const NUM_LAYER_CODES = ['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digi
 const FUN_LAYER_KEYS = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
 // Media keys indicate MEDIA layer
 const MEDIA_LAYER_KEYS = ['MediaPlayPause', 'MediaTrackNext', 'MediaTrackPrevious', 'AudioVolumeUp', 'AudioVolumeDown', 'AudioVolumeMute'];
+
+// Layer-specific key to position mapping (for highlighting keys on non-BASE layers)
+const LAYER_KEY_TO_POS = {
+    // NAV layer (positions from layers.js)
+    'ArrowLeft': 19,   // ←
+    'ArrowDown': 20,   // ↓
+    'ArrowUp': 21,     // ↑
+    'ArrowRight': 22,  // →
+    'Home': 31,
+    'End': 34,
+    'PageDown': 32,
+    'PageUp': 33,
+    'Insert': 30,
+    'CapsLock': 18
+};
 
 // Initialize the keyboard display
 function init() {
@@ -219,8 +235,10 @@ function handleKeyDown(e) {
     let detectedLayer = null;
     
     // PRIORITY: Check for layer signal keys (F13-F18 from ZMK macros)
+    let isLayerSignal = false;
     if (LAYER_SIGNAL_KEYS[key]) {
         detectedLayer = LAYER_SIGNAL_KEYS[key];
+        isLayerSignal = true;
         console.log('>>> LAYER SIGNAL detected:', key, '-> layer', detectedLayer);
     }
     // Fallback: Detect layer based on key type (for when ZMK sends layer-specific keys)
@@ -244,12 +262,15 @@ function handleKeyDown(e) {
         console.log('>>> SWITCHING to layer:', detectedLayer);
         cancelLayerTimeout();
         switchToLayer(detectedLayer);
-        // Start timeout to return to BASE after layer key activity stops
-        startLayerTimeout();
+        // Only start timeout for fallback detection (arrows, F-keys, etc.)
+        // Layer signal keys (F13-F18) will use keyup to return to BASE
+        if (!isLayerSignal) {
+            startLayerTimeout();
+        }
     } else if (detectedLayer !== null) {
-        // Same layer, reset timeout
+        // Same layer - just cancel timeout, don't restart
+        // F13 keyup will handle return to BASE
         cancelLayerTimeout();
-        startLayerTimeout();
     }
     
     // If we're on a non-BASE layer and receive a BASE layer key (letter/space/etc),
@@ -260,10 +281,15 @@ function handleKeyDown(e) {
         switchToLayer(0);
     }
     
+    // Check layer-specific keys first (arrows, home/end, etc.) - highlight on current layer
+    if (LAYER_KEY_TO_POS[key]) {
+        pos = LAYER_KEY_TO_POS[key];
+        console.log('Layer-specific key:', key, '-> pos', pos);
+    }
     // Check layer activation keys (thumb cluster: Space, Tab, Enter, etc.)
     // Short tap = character output, stay on BASE
     // Long hold = layer activated (detected via layer-specific keys above)
-    if (LAYER_KEYS[code]) {
+    else if (LAYER_KEYS[code]) {
         pos = LAYER_KEYS[code].pos;
         console.log('LAYER key tap (short):', code, '- staying on BASE');
         // Don't switch layer on tap - that's the character output

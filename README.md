@@ -1,6 +1,20 @@
 # Keyball44 ZMK Configuration
 
-This keeb created by a group of people who loves keyball.
+ZMK firmware configuration for the Keyball44 split keyboard with integrated trackball, featuring a **Miryoku-inspired layout** with home row mods and an interactive **typing trainer** web app.
+
+## Typing Trainer
+
+**[Launch Typing Trainer](https://pegre94.github.io/zmk-config-Keyball44/)**
+
+An interactive web app to learn and practice typing on the Keyball44:
+- **Layout Viewer** - Visual keyboard with real-time key press detection
+- **Progressive Lessons** - Learn touch typing step by step (TypingClub style)
+- **Typing Tests** - Practice with quotes, code, vim commands, and more (MonkeyType style)
+- **Layer Visualization** - See all 7 layers with key mappings
+
+---
+
+## Credits
 
 **Special Thanks to:**
 - **PCB:** [yangxing844](https://github.com/yangxing844)
@@ -15,17 +29,19 @@ This keeb created by a group of people who loves keyball.
 
 ---
 
-## Layers
+## Layers (Miryoku)
 
 | # | Name | Description |
 |---|------|-------------|
-| 0 | **DEFAULT (QWRT)** | Standard QWERTY layout |
-| 1 | **NUM** | Numbers (1-9, 0) + Arrow keys |
-| 2 | **SYM** | Symbols + Bluetooth controls |
-| 3 | **FUN** | Function keys (F1-F12) |
-| 4 | **MOUSE** | Mouse clicks + Navigation |
-| 5 | **SCROLL** | Trackball scroll mode |
-| 6 | **SNIPE** | Trackball precision/snipe mode |
+| 0 | **BASE** | QWERTY with home row mods |
+| 1 | **NAV** | Navigation (arrows, page up/down) |
+| 2 | **MOUSE** | Mouse buttons |
+| 3 | **MEDIA** | Media controls |
+| 4 | **NUM** | Number pad |
+| 5 | **SYM** | Symbols |
+| 6 | **FUN** | Function keys (F1-F12) |
+| 7 | **SCROLL** | Trackball scroll mode |
+| 8 | **SNIPE** | Trackball precision mode |
 
 ---
 
@@ -33,11 +49,12 @@ This keeb created by a group of people who loves keyball.
 
 | Key | Tap | Hold |
 |-----|-----|------|
-| Left Inner | Space | MOUSE (layer 4) |
-| Left Outer | Tab | SCROLL (layer 5) |
-| Left Far | Escape | SNIPE (layer 6) |
-| Right Inner | Enter | — |
-| Right Outer | Backspace | SYM (layer 2) |
+| Left Inner | Escape | — |
+| Left Middle | Space | NAV |
+| Left Outer | Tab | MOUSE |
+| Right Inner | Enter | SYM |
+| Right Middle | Backspace | NUM |
+| Right Outer | Delete | FUN |
 
 ---
 

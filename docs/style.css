@@ -274,6 +274,542 @@ h1 {
     border-radius: 50%;
 }
 
+/* ==================== */
+/* PRACTICE MODE STYLES */
+/* ==================== */
+
+/* Practice Container */
+#practice-container {
+    margin-top: 30px;
+    padding: 20px;
+    background: #1e293b;
+    border-radius: 16px;
+    min-height: 300px;
+}
+
+/* Lesson List */
+.lesson-list h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.stats-summary {
+    text-align: center;
+    color: #94a3b8;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.lessons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.lesson-card {
+    background: #334155;
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    border: 2px solid transparent;
+}
+
+.lesson-card:hover {
+    background: #475569;
+    border-color: #4299e1;
+    transform: translateY(-2px);
+}
+
+.lesson-card.completed {
+    border-color: #22c55e;
+}
+
+.lesson-number {
+    width: 40px;
+    height: 40px;
+    background: #4299e1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.lesson-card.completed .lesson-number {
+    background: #22c55e;
+}
+
+.lesson-info {
+    flex: 1;
+}
+
+.lesson-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #fff;
+}
+
+.lesson-desc {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 6px;
+}
+
+.lesson-stars {
+    color: #fbbf24;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.lesson-layer {
+    font-size: 11px;
+    background: #4299e1;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #fff;
+}
+
+/* Practice UI */
+.practice-ui {
+    text-align: center;
+}
+
+.practice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.practice-header h2 {
+    margin: 0;
+    color: #fff;
+}
+
+.practice-progress {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.btn-quit {
+    background: #ef4444;
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s;
+}
+
+.btn-quit:hover {
+    background: #dc2626;
+}
+
+/* Practice Stats */
+.practice-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 32px;
+    font-weight: bold;
+    color: #4299e1;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+/* Practice Text Display */
+.practice-text {
+    background: #0f172a;
+    padding: 30px;
+    border-radius: 12px;
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
+
+.practice-text .char {
+    padding: 4px 2px;
+    border-radius: 4px;
+    transition: all 0.1s;
+}
+
+.practice-text .char.current {
+    background: #4299e1;
+    color: #fff;
+    animation: blink 1s infinite;
+}
+
+.practice-text .char.correct {
+    color: #22c55e;
+}
+
+.practice-text .char.incorrect {
+    color: #ef4444;
+    text-decoration: underline;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.practice-hint {
+    color: #94a3b8;
+    margin-bottom: 10px;
+}
+
+.practice-hint strong {
+    color: #4299e1;
+    font-size: 18px;
+}
+
+.keyboard-hint {
+    color: #64748b;
+    font-size: 12px;
+}
+
+/* Error shake animation */
+.error-shake {
+    animation: shake 0.2s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Key hint (next key to press) */
+.key.hint {
+    background: linear-gradient(145deg, #86efac 0%, #22c55e 100%) !important;
+    box-shadow: 
+        0 4px 0 #15803d,
+        0 6px 10px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(34, 197, 94, 0.6) !important;
+    animation: hint-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes hint-pulse {
+    from { box-shadow: 0 4px 0 #15803d, 0 6px 10px rgba(0, 0, 0, 0.3), 0 0 15px rgba(34, 197, 94, 0.4); }
+    to { box-shadow: 0 4px 0 #15803d, 0 6px 10px rgba(0, 0, 0, 0.3), 0 0 30px rgba(34, 197, 94, 0.8); }
+}
+
+/* Completion Screen */
+.completion-screen {
+    text-align: center;
+    padding: 40px;
+}
+
+.completion-screen h2 {
+    color: #22c55e;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.completion-lesson {
+    color: #94a3b8;
+    margin-bottom: 30px;
+}
+
+.completion-stars {
+    font-size: 48px;
+    color: #fbbf24;
+    margin-bottom: 30px;
+    letter-spacing: 8px;
+}
+
+.completion-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 30px;
+}
+
+.stat-big .stat-value {
+    font-size: 48px;
+}
+
+.completion-message {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.completion-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.completion-hint {
+    margin-top: 20px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.completion-hint strong {
+    color: #4299e1;
+    background: #1e293b;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Practice Tabs */
+.practice-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.practice-tab {
+    padding: 12px 24px;
+    border: 2px solid #4a5568;
+    background: #2d3748;
+    color: #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.practice-tab:hover {
+    background: #4a5568;
+}
+
+.practice-tab.active {
+    background: #4299e1;
+    border-color: #63b3ed;
+    color: #fff;
+}
+
+/* Typing Test */
+.typing-test {
+    text-align: center;
+}
+
+.typing-test h2 {
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.typing-test-desc {
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+/* Category Selector */
+.category-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.category-btn {
+    padding: 10px 18px;
+    border: 2px solid #4a5568;
+    background: #334155;
+    color: #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.category-btn:hover {
+    background: #475569;
+    border-color: #64748b;
+}
+
+.category-btn.active {
+    background: #22c55e;
+    border-color: #4ade80;
+    color: #fff;
+}
+
+/* Start Test Button */
+.typing-test-start {
+    margin-bottom: 30px;
+}
+
+.btn-start-test {
+    padding: 16px 40px;
+    border: none;
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    color: #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(66, 153, 225, 0.4);
+}
+
+.btn-start-test:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 153, 225, 0.5);
+}
+
+/* Recent Stats */
+.recent-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+/* Typing Test UI */
+.typing-test-ui {
+    text-align: center;
+}
+
+.typing-test-text {
+    font-size: 20px;
+    line-height: 1.8;
+    text-align: left;
+}
+
+.completion-buttons button,
+.btn-back {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-retry {
+    background: #4299e1;
+    color: #fff;
+}
+
+.btn-retry:hover {
+    background: #3182ce;
+}
+
+.btn-next {
+    background: #22c55e;
+    color: #fff;
+}
+
+.btn-next:hover {
+    background: #16a34a;
+}
+
+.btn-back {
+    background: #64748b;
+    color: #fff;
+}
+
+.btn-back:hover {
+    background: #475569;
+}
+
+/* Theory Lesson */
+.theory-lesson {
+    text-align: center;
+    padding: 40px;
+}
+
+.theory-lesson h2 {
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.theory-lesson p {
+    color: #94a3b8;
+    margin-bottom: 30px;
+}
+
+.theory-content {
+    background: #0f172a;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.theory-content ul {
+    list-style: none;
+}
+
+.theory-content li {
+    padding: 10px 0;
+    border-bottom: 1px solid #334155;
+    color: #e2e8f0;
+}
+
+.theory-content li:last-child {
+    border-bottom: none;
+}
+
+/* Mode Toggle */
+.mode-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.mode-btn {
+    padding: 10px 24px;
+    border: 2px solid #4a5568;
+    background: #2d3748;
+    color: #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+    background: #4a5568;
+}
+
+.mode-btn.active {
+    background: #4299e1;
+    border-color: #63b3ed;
+    color: #fff;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
     .keyboard {

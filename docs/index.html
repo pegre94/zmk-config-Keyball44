@@ -8,16 +8,27 @@
 </head>
 <body>
     <div class="container">
-        <h1>Keyball44 Miryoku Layout</h1>
+        <h1>Keyball44 Qwerty Miryoku Layout</h1>
         
-        <div class="layer-selector">
-            <button class="layer-btn active" data-layer="0">BASE</button>
-            <button class="layer-btn" data-layer="1">NAV</button>
-            <button class="layer-btn" data-layer="2">MOUSE</button>
-            <button class="layer-btn" data-layer="3">MEDIA</button>
-            <button class="layer-btn" data-layer="4">NUM</button>
-            <button class="layer-btn" data-layer="5">SYM</button>
-            <button class="layer-btn" data-layer="6">FUN</button>
+        <!-- Mode Toggle -->
+        <div class="mode-toggle">
+            <button class="mode-btn active" onclick="setMode('viewer')">Layout Viewer</button>
+            <button class="mode-btn" onclick="setMode('practice')">Typing Practice</button>
+        </div>
+        
+        <!-- Practice Mode Container (above keyboard when active) -->
+        <div id="practice-container" style="display: none;"></div>
+        
+        <div id="viewer-controls">
+            <div class="layer-selector">
+                <button class="layer-btn active" data-layer="0">BASE</button>
+                <button class="layer-btn" data-layer="1">NAV</button>
+                <button class="layer-btn" data-layer="2">MOUSE</button>
+                <button class="layer-btn" data-layer="3">MEDIA</button>
+                <button class="layer-btn" data-layer="4">NUM</button>
+                <button class="layer-btn" data-layer="5">SYM</button>
+                <button class="layer-btn" data-layer="6">FUN</button>
+            </div>
         </div>
 
         <div class="keyboard">
@@ -109,6 +120,30 @@
     </div>
 
     <script src="layers.js"></script>
+    <script src="lessons.js"></script>
+    <script src="quotes.js"></script>
+    <script src="practice.js"></script>
     <script src="app.js"></script>
+    <script>
+        // Mode switching
+        function setMode(mode) {
+            const viewerControls = document.getElementById('viewer-controls');
+            const practiceContainer = document.getElementById('practice-container');
+            const modeButtons = document.querySelectorAll('.mode-btn');
+            
+            modeButtons.forEach(btn => btn.classList.remove('active'));
+            
+            if (mode === 'viewer') {
+                viewerControls.style.display = 'block';
+                practiceContainer.style.display = 'none';
+                modeButtons[0].classList.add('active');
+            } else {
+                viewerControls.style.display = 'none';
+                practiceContainer.style.display = 'block';
+                modeButtons[1].classList.add('active');
+                initPractice();
+            }
+        }
+    </script>
 </body>
 </html>

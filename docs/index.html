@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyball44 Typing Trainer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Keyball44 Miryoku Layout</h1>
+        
+        <div class="layer-selector">
+            <button class="layer-btn active" data-layer="0">BASE</button>
+            <button class="layer-btn" data-layer="1">NAV</button>
+            <button class="layer-btn" data-layer="2">MOUSE</button>
+            <button class="layer-btn" data-layer="3">MEDIA</button>
+            <button class="layer-btn" data-layer="4">NUM</button>
+            <button class="layer-btn" data-layer="5">SYM</button>
+            <button class="layer-btn" data-layer="6">FUN</button>
+        </div>
+
+        <div class="keyboard">
+            <!-- Left Half -->
+            <div class="half left-half">
+                <!-- Row 0 -->
+                <div class="row row-0">
+                    <div class="key none" data-pos="0"></div>
+                    <div class="key" data-pos="1"></div>
+                    <div class="key" data-pos="2" style="--offset: -14px"></div>
+                    <div class="key" data-pos="3" style="--offset: -28px"></div>
+                    <div class="key" data-pos="4" style="--offset: -17px"></div>
+                    <div class="key" data-pos="5" style="--offset: -6px"></div>
+                </div>
+                <!-- Row 1 -->
+                <div class="row row-1">
+                    <div class="key none" data-pos="12"></div>
+                    <div class="key home" data-pos="13"></div>
+                    <div class="key home" data-pos="14" style="--offset: -14px"></div>
+                    <div class="key home" data-pos="15" style="--offset: -28px"></div>
+                    <div class="key home" data-pos="16" style="--offset: -17px"></div>
+                    <div class="key" data-pos="17" style="--offset: -6px"></div>
+                </div>
+                <!-- Row 2 -->
+                <div class="row row-2">
+                    <div class="key none" data-pos="24"></div>
+                    <div class="key" data-pos="25"></div>
+                    <div class="key" data-pos="26" style="--offset: -14px"></div>
+                    <div class="key" data-pos="27" style="--offset: -28px"></div>
+                    <div class="key" data-pos="28" style="--offset: -17px"></div>
+                    <div class="key" data-pos="29" style="--offset: -6px"></div>
+                </div>
+                <!-- Thumb Row -->
+                <div class="row thumb-row">
+                    <div class="key none" data-pos="36"></div>
+                    <div class="key none" data-pos="37"></div>
+                    <div class="key thumb" data-pos="38"></div>
+                    <div class="key thumb" data-pos="39" style="--rotate: 10deg"></div>
+                    <div class="key thumb" data-pos="40" style="--rotate: 25deg"></div>
+                </div>
+            </div>
+
+            <!-- Right Half -->
+            <div class="half right-half">
+                <!-- Row 0 -->
+                <div class="row row-0">
+                    <div class="key" data-pos="6" style="--offset: -6px"></div>
+                    <div class="key" data-pos="7" style="--offset: -17px"></div>
+                    <div class="key" data-pos="8" style="--offset: -28px"></div>
+                    <div class="key" data-pos="9" style="--offset: -14px"></div>
+                    <div class="key" data-pos="10"></div>
+                    <div class="key none" data-pos="11"></div>
+                </div>
+                <!-- Row 1 -->
+                <div class="row row-1">
+                    <div class="key" data-pos="18" style="--offset: -6px"></div>
+                    <div class="key home" data-pos="19" style="--offset: -17px"></div>
+                    <div class="key home" data-pos="20" style="--offset: -28px"></div>
+                    <div class="key home" data-pos="21" style="--offset: -14px"></div>
+                    <div class="key home" data-pos="22"></div>
+                    <div class="key none" data-pos="23"></div>
+                </div>
+                <!-- Row 2 -->
+                <div class="row row-2">
+                    <div class="key" data-pos="30" style="--offset: -6px"></div>
+                    <div class="key" data-pos="31" style="--offset: -17px"></div>
+                    <div class="key" data-pos="32" style="--offset: -28px"></div>
+                    <div class="key" data-pos="33" style="--offset: -14px"></div>
+                    <div class="key" data-pos="34"></div>
+                    <div class="key none" data-pos="35"></div>
+                </div>
+                <!-- Thumb Row -->
+                <div class="row thumb-row right-thumb">
+                    <div class="key thumb" data-pos="41" style="--rotate: -25deg"></div>
+                    <div class="key thumb" data-pos="42" style="--rotate: -10deg"></div>
+                    <div class="trackball-area">
+                        <div class="trackball"></div>
+                        <div class="key thumb trackball-btn" data-pos="43"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><span class="legend-color home-color"></span> Home Row (Mods)</div>
+            <div class="legend-item"><span class="legend-color thumb-color"></span> Thumb Cluster</div>
+            <div class="legend-item"><span class="legend-color trackball-color"></span> Trackball</div>
+        </div>
+    </div>
+
+    <script src="layers.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

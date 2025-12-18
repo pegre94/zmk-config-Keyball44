@@ -41,7 +41,7 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:keyboard-esc$$', h: '&lts_media'}
   - {t: '$$mdi:keyboard-space$$', h: '&lts_nav'}
-  - {t: '$$mdi:keyboard-tab$$', h: '&lts_scroll'}
+  - {t: '$$mdi:keyboard-tab$$', h: SCROLL}
   - {t: '$$mdi:keyboard-return$$', h: '&lts_sym'}
   - {t: '$$mdi:backspace$$', h: '&lts_num'}
   - {t: '$$mdi:backspace-reverse-outline$$', h: '&lts_fun'}
@@ -356,7 +356,7 @@ layers:
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - {type: held}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}

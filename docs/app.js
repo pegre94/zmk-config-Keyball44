@@ -74,9 +74,8 @@ const FUN_LAYER_KEYS = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F
 // Media keys indicate MEDIA layer
 const MEDIA_LAYER_KEYS = ['MediaPlayPause', 'MediaTrackNext', 'MediaTrackPrevious', 'AudioVolumeUp', 'AudioVolumeDown', 'AudioVolumeMute'];
 
-// Layer-specific key to position mapping (for highlighting keys on non-BASE layers)
-const LAYER_KEY_TO_POS = {
-    // NAV layer (positions from layers.js)
+// NAV layer key to position mapping
+const NAV_KEY_TO_POS = {
     'ArrowLeft': 19,   // ←
     'ArrowDown': 20,   // ↓
     'ArrowUp': 21,     // ↑
@@ -87,6 +86,50 @@ const LAYER_KEY_TO_POS = {
     'PageUp': 33,
     'Insert': 30,
     'CapsLock': 18
+};
+
+// SYM layer key to position mapping
+const SYM_KEY_TO_POS = {
+    '{': 1,
+    '&': 2,
+    '*': 3,
+    '(': 4,
+    '}': 5,
+    ':': 13,
+    '$': 14,
+    '%': 15,
+    '^': 16,
+    '+': 17,
+    '~': 25,
+    '!': 26,
+    '@': 27,
+    '#': 28,
+    '|': 29,
+    '_': 38,
+    ')': 39,
+    '"': 40
+};
+
+// NUM layer key to position mapping
+const NUM_KEY_TO_POS = {
+    '[': 1,
+    '7': 2,
+    '8': 3,
+    '9': 4,
+    ']': 5,
+    ';': 13,
+    '4': 14,
+    '5': 15,
+    '6': 16,
+    '=': 17,
+    '`': 25,
+    '1': 26,
+    '2': 27,
+    '3': 28,
+    '\\': 29,
+    '.': 38,
+    '0': 39,
+    '-': 40
 };
 
 // Initialize the keyboard display
@@ -281,10 +324,16 @@ function handleKeyDown(e) {
         switchToLayer(0);
     }
     
-    // Check layer-specific keys first (arrows, home/end, etc.) - highlight on current layer
-    if (LAYER_KEY_TO_POS[key]) {
-        pos = LAYER_KEY_TO_POS[key];
-        console.log('Layer-specific key:', key, '-> pos', pos);
+    // Check layer-specific keys - only use mapping for the current layer
+    if (currentLayer === 1 && NAV_KEY_TO_POS[key]) {
+        pos = NAV_KEY_TO_POS[key];
+        console.log('NAV layer key:', key, '-> pos', pos);
+    } else if (currentLayer === 4 && NUM_KEY_TO_POS[key]) {
+        pos = NUM_KEY_TO_POS[key];
+        console.log('NUM layer key:', key, '-> pos', pos);
+    } else if (currentLayer === 5 && SYM_KEY_TO_POS[key]) {
+        pos = SYM_KEY_TO_POS[key];
+        console.log('SYM layer key:', key, '-> pos', pos);
     }
     // Check layer activation keys (thumb cluster: Space, Tab, Enter, etc.)
     // Short tap = character output, stay on BASE
@@ -299,8 +348,8 @@ function handleKeyDown(e) {
     else if (CHAR_TO_POS[key]) {
         pos = CHAR_TO_POS[key];
     }
-    // Check if it's a modifier key
-    else if (MODIFIER_TO_POS[code]) {
+    // Check if it's a modifier key (only highlight on BASE layer)
+    else if (MODIFIER_TO_POS[code] && currentLayer === 0) {
         pos = MODIFIER_TO_POS[code];
         heldModifiers.add(code);
     }

@@ -47,10 +47,11 @@ An interactive web app to learn and practice typing on the Keyball44:
 | 6 | **FUN** | Function keys (F1-F12) |
 | 7 | **SCROLL** | Trackball scroll mode |
 | 8 | **SNIPE** | Trackball precision mode |
+a     
 
 ---
 
-## Layer Access (Thumb Cluster)
+## Layer Access aaster)
 
 | Key | Tap | Hold |
 |-----|-----|------|

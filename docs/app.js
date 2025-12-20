@@ -132,11 +132,55 @@ const NUM_KEY_TO_POS = {
     '-': 40
 };
 
+// Map of key positions to their finger (for layout viewer)
+const POS_TO_FINGER_VIEWER = {
+    // Top row
+    1: 0, 2: 1, 3: 2, 4: 3, 5: 3,      // Q W E R T (left hand)
+    6: 6, 7: 6, 8: 7, 9: 8, 10: 9,     // Y U I O P (right hand)
+    // Home row
+    13: 0, 14: 1, 15: 2, 16: 3, 17: 3, // A S D F G (left hand)
+    18: 6, 19: 6, 20: 7, 21: 8, 22: 9, // H J K L ' (right hand)
+    // Bottom row
+    25: 0, 26: 1, 27: 2, 28: 3, 29: 3, // Z X C V B (left hand)
+    30: 6, 31: 6, 32: 7, 33: 8, 34: 9, // N M , . / (right hand)
+    // Left thumb keys
+    38: 4, 39: 4, 40: 4,
+    // Right thumb keys
+    41: 5, 42: 5, 43: 5
+};
+
+// Finger colors (same as practice.js)
+const FINGER_COLORS_VIEWER = {
+    0: '#ef4444', // Left pinky - red
+    1: '#f97316', // Left ring - orange
+    2: '#eab308', // Left middle - yellow
+    3: '#22c55e', // Left index - green
+    4: '#3b82f6', // Left thumb - blue
+    5: '#3b82f6', // Right thumb - blue
+    6: '#22c55e', // Right index - green
+    7: '#eab308', // Right middle - yellow
+    8: '#f97316', // Right ring - orange
+    9: '#ef4444'  // Right pinky - red
+};
+
+// Apply finger colors to all keyboard keys (for layout viewer)
+function applyFingerColorsToKeyboardViewer() {
+    document.querySelectorAll('.key[data-pos]').forEach(keyEl => {
+        const pos = parseInt(keyEl.getAttribute('data-pos'));
+        const finger = POS_TO_FINGER_VIEWER[pos];
+        if (finger !== undefined && FINGER_COLORS_VIEWER[finger]) {
+            keyEl.style.setProperty('--finger-bg-color', FINGER_COLORS_VIEWER[finger]);
+            keyEl.classList.add('finger-colored');
+        }
+    });
+}
+
 // Initialize the keyboard display
 function init() {
     renderLayer(currentLayer);
     setupLayerButtons();
     setupKeyboardListeners();
+    applyFingerColorsToKeyboardViewer();
 }
 
 // Render a specific layer

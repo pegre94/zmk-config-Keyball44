@@ -21,7 +21,9 @@ const CHAR_TO_POS = {
     'z': 25, 'x': 26, 'c': 27, 'v': 28, 'b': 29,
     'n': 30, 'm': 31, ',': 32, '.': 33, '/': 34,
     'Z': 25, 'X': 26, 'C': 27, 'V': 28, 'B': 29,
-    'N': 30, 'M': 31, '<': 32, '>': 33, '?': 34
+    'N': 30, 'M': 31, '<': 32, '>': 33, '?': 34,
+    // Space (thumb key)
+    ' ': 39
 };
 
 // Map keyboard event codes to key positions (for special keys)

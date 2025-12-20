@@ -1037,11 +1037,15 @@ function highlightNextKey(char) {
     if (!char) return;
     
     // Find the key position for this character
-    const upperChar = char.toUpperCase();
-    let pos = CHAR_TO_POS[upperChar];
+    // Space stays as space, other chars get uppercased
+    const lookupChar = char === ' ' ? ' ' : char.toUpperCase();
+    let pos = CHAR_TO_POS[lookupChar];
+    
+    console.log('[highlightNextKey] char:', char, 'charCode:', char.charCodeAt(0), 'lookupChar:', lookupChar, 'pos:', pos, 'CHAR_TO_POS has space:', ' ' in CHAR_TO_POS);
     
     if (pos !== undefined) {
         const keyEl = document.querySelector(`.key[data-pos="${pos}"]`);
+        console.log('[highlightNextKey] keyEl found:', keyEl, 'classes:', keyEl?.className);
         if (keyEl) {
             keyEl.classList.add('hint');
             
@@ -1050,7 +1054,10 @@ function highlightNextKey(char) {
             if (finger !== null && FINGER_COLORS[finger]) {
                 keyEl.style.setProperty('--hint-color', FINGER_COLORS[finger]);
             }
+            console.log('[highlightNextKey] after hint - classes:', keyEl.className, 'hint-color:', FINGER_COLORS[finger]);
         }
+    } else {
+        console.log('[highlightNextKey] pos undefined for char:', char);
     }
 }
 

@@ -282,20 +282,30 @@ h1 {
         0 6px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Home row keys */
-.key.home {
+/* Home row keys (default style when not finger-colored or hint) */
+.key.home:not(.finger-colored):not(.finger-colored-practice):not(.hint) {
     background: linear-gradient(145deg, #fef3c7 0%, #fcd34d 100%);
     box-shadow: 
         0 4px 0 #b45309,
         0 6px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Thumb keys */
-.key.thumb {
+/* Thumb keys (default style when not finger-colored or hint) */
+.key.thumb:not(.finger-colored):not(.finger-colored-practice):not(.hint) {
     background: linear-gradient(145deg, #c7d2fe 0%, #818cf8 100%);
     box-shadow: 
         0 4px 0 #4338ca,
         0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Thumb key hint - ensure it shows properly */
+.key.thumb.hint {
+    background: var(--hint-color, #3b82f6) !important;
+    box-shadow: 
+        0 4px 0 rgba(0, 0, 0, 0.4),
+        0 6px 10px rgba(0, 0, 0, 0.3),
+        0 0 20px var(--hint-color, #3b82f6) !important;
+    animation: hint-pulse 0.8s ease-in-out infinite alternate !important;
 }
 
 /* Trackball area (ball + button) */
@@ -629,47 +639,46 @@ h1 {
 
 /* Finger-colored keys (solid background for layout viewer) */
 .key.finger-colored {
-    background: linear-gradient(145deg, 
-        color-mix(in srgb, var(--finger-bg-color) 70%, white) 0%, 
-        var(--finger-bg-color) 100%) !important;
-    border: 1px solid color-mix(in srgb, var(--finger-bg-color) 100%, black 20%) !important;
-    box-shadow: 0 4px 0 color-mix(in srgb, var(--finger-bg-color) 100%, black 30%),
+    background: var(--finger-bg-color) !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3),
                 0 6px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Finger-colored keys in practice mode (tinted/subtle) */
 .key.finger-colored-practice {
-    background: linear-gradient(145deg, 
-        color-mix(in srgb, var(--finger-bg-color) 15%, #2a3a4a) 0%, 
-        color-mix(in srgb, var(--finger-bg-color) 25%, #1a2a3a) 100%) !important;
-    border: 1px solid color-mix(in srgb, var(--finger-bg-color) 40%, transparent) !important;
+    background: #2a3a4a !important;
+    border: 1px solid rgba(100, 116, 139, 0.4) !important;
+}
+
+/* When hint is active, it overrides finger-colored-practice */
+.key.finger-colored-practice.hint {
+    background: var(--hint-color) !important;
 }
 
 /* Key hint (next key to press) - uses --hint-color for finger color coding */
 .key.hint {
     --hint-color: #22c55e;
-    background: linear-gradient(145deg, 
-        color-mix(in srgb, var(--hint-color) 60%, white) 0%, 
-        var(--hint-color) 100%) !important;
+    background: var(--hint-color) !important;
     box-shadow: 
-        0 4px 0 color-mix(in srgb, var(--hint-color) 100%, black 30%),
+        0 4px 0 rgba(0, 0, 0, 0.4),
         0 6px 10px rgba(0, 0, 0, 0.3),
-        0 0 20px color-mix(in srgb, var(--hint-color) 60%, transparent) !important;
+        0 0 20px var(--hint-color) !important;
     animation: hint-pulse 0.8s ease-in-out infinite alternate;
 }
 
 @keyframes hint-pulse {
     from { 
         box-shadow: 
-            0 4px 0 color-mix(in srgb, var(--hint-color, #22c55e) 100%, black 30%), 
+            0 4px 0 rgba(0, 0, 0, 0.4), 
             0 6px 10px rgba(0, 0, 0, 0.3), 
-            0 0 15px color-mix(in srgb, var(--hint-color, #22c55e) 40%, transparent); 
+            0 0 15px var(--hint-color, #22c55e); 
     }
     to { 
         box-shadow: 
-            0 4px 0 color-mix(in srgb, var(--hint-color, #22c55e) 100%, black 30%), 
+            0 4px 0 rgba(0, 0, 0, 0.4), 
             0 6px 10px rgba(0, 0, 0, 0.3), 
-            0 0 30px color-mix(in srgb, var(--hint-color, #22c55e) 80%, transparent); 
+            0 0 30px var(--hint-color, #22c55e); 
     }
 }
 

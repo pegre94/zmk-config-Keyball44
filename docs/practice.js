@@ -959,6 +959,7 @@ function renderPracticeUI() {
         let charClass = '';
         if (i < pos) {
             charClass = practiceState.history[i]?.correct ? 'correct' : 'incorrect';
+            console.log(`[RENDER] pos=${i}, char="${text[i]}", correct=${practiceState.history[i]?.correct}, class="${charClass}"`);
         } else if (i === pos) {
             charClass = 'current';
         }
@@ -1051,10 +1052,11 @@ function highlightNextKey(char) {
             
             // Apply finger color to the key
             const finger = getFingerForChar(char);
+            console.log('[highlightNextKey] finger lookup:', char, '-> finger:', finger, '-> color:', FINGER_COLORS[finger]);
             if (finger !== null && FINGER_COLORS[finger]) {
                 keyEl.style.setProperty('--hint-color', FINGER_COLORS[finger]);
             }
-            console.log('[highlightNextKey] after hint - classes:', keyEl.className, 'hint-color:', FINGER_COLORS[finger]);
+            console.log('[highlightNextKey] after hint - classes:', keyEl.className, 'actual style:', keyEl.style.cssText);
         }
     } else {
         console.log('[highlightNextKey] pos undefined for char:', char);
@@ -1107,14 +1109,24 @@ function removeFingerColorsFromKeyboard() {
 
 // Setup practice-specific key listeners
 function setupPracticeListeners() {
+    // Remove app.js handler to prevent conflicts
+    const appKeyDown = window.handleKeyDown;
+    document.removeEventListener('keydown', appKeyDown);
+    
+    // Add practice handler
     document.addEventListener('keydown', handlePracticeKeyDown);
     applyFingerColorsToKeyboard();
 }
 
 // Remove practice listeners
 function removePracticeListeners() {
+    // Remove practice handler
     document.removeEventListener('keydown', handlePracticeKeyDown);
     removeFingerColorsFromKeyboard();
+    
+    // Restore app.js handler
+    const appKeyDown = window.handleKeyDown;
+    document.addEventListener('keydown', appKeyDown);
 }
 
 // Handle keydown during practice
@@ -1133,6 +1145,8 @@ function handlePracticeKeyDown(e) {
     const text = practiceState.currentText;
     const pos = practiceState.currentPosition;
     
+    console.log('[KEYDOWN] text:', JSON.stringify(text), 'pos:', pos, 'expected char:', text[pos]);
+    
     // Ignore if already complete
     if (pos >= text.length) return;
     
@@ -1150,22 +1164,25 @@ function handlePracticeKeyDown(e) {
     // Handle the keystroke
     const correct = typed === expected;
     
-    if (!correct) {
-        console.log(`[ERROR] Mismatch! Expected "${expected}" but got "${typed}"`);
-    }
+    console.log(`[MATCH CHECK] correct=${correct}, expected="${expected}" (len=${expected.length}), typed="${typed}" (len=${typed.length}), strictEqual=${typed === expected}`);
     
-    practiceState.history.push({
-        expected,
-        typed,
-        correct,
-        time: Date.now()
-    });
+    if (!correct) {
+        console.log(`[ERROR] Mismatch! Expected "${expected}" (codes: ${[...expected].map(c => c.charCodeAt(0)).join(',')}) but got "${typed}" (codes: ${[...typed].map(c => c.charCodeAt(0)).join(',')})`);
+    }
     
     practiceState.totalChars++;
     
     if (correct) {
         practiceState.correctChars++;
         practiceState.currentPosition++;
+        
+        // Only add to history when correct
+        practiceState.history.push({
+            expected,
+            typed,
+            correct,
+            time: Date.now()
+        });
         
         // Check if exercise is complete
         if (practiceState.currentPosition >= text.length) {
@@ -1182,6 +1199,7 @@ function handlePracticeKeyDown(e) {
             }
         }
     } else {
+        console.log('[ERROR TRIGGERED] About to shake! expected:', expected, 'typed:', typed);
         practiceState.errors++;
         
         // Track error for heatmap

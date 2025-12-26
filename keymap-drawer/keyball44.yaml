@@ -251,7 +251,7 @@ layers:
   - RGUI
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - '&uc 0x7E 0'
+  - Sft+|
   - '!'
   - '@'
   - '#'

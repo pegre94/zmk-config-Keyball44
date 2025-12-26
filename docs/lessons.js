@@ -280,46 +280,349 @@ const LESSONS = {
         minAccuracy: 85
     },
     
-    // Stage 9: Numbers (NUM layer)
+    // ==========================================
+    // Stage 9: Numbers (NUM layer) - Progressive
+    // ==========================================
     15: {
-        name: "Numbers - NUM Layer",
-        description: "Practice using the NUM layer (hold Backspace)",
-        keys: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+        name: "NUM Layer - Home Row (4, 5, 6)",
+        description: "Learn the home row numbers on NUM layer",
+        keys: ['4', '5', '6'],
         exercises: [
-            "123 456 789",
-            "111 222 333",
-            "444 555 666",
-            "777 888 999",
-            "2024 2025 2026",
-            "100 200 300",
-            "1234567890"
+            "444 444 444",
+            "555 555 555",
+            "666 666 666",
+            "456 456 456",
+            "654 654 654",
+            "445 556 664",
+            "465 546 654"
         ],
-        minWPM: 15,
+        minWPM: 10,
         minAccuracy: 90,
         layer: 4
     },
-    
-    // Stage 10: Symbols (SYM layer)
     16: {
-        name: "Symbols - SYM Layer",
-        description: "Practice using the SYM layer (hold Enter)",
-        keys: ['{', '}', '(', ')', '[', ']', '!', '@', '#', '$', '%', '^', '&', '*'],
+        name: "NUM Layer - Top Row (7, 8, 9)",
+        description: "Learn the top row numbers on NUM layer",
+        keys: ['7', '8', '9', '4', '5', '6'],
         exercises: [
+            "777 777 777",
+            "888 888 888",
+            "999 999 999",
+            "789 789 789",
+            "987 987 987",
+            "456 789 456",
+            "741 852 963"
+        ],
+        minWPM: 10,
+        minAccuracy: 90,
+        layer: 4
+    },
+    17: {
+        name: "NUM Layer - Bottom Row (1, 2, 3)",
+        description: "Learn the bottom row numbers on NUM layer",
+        keys: ['1', '2', '3', '4', '5', '6'],
+        exercises: [
+            "111 111 111",
+            "222 222 222",
+            "333 333 333",
+            "123 123 123",
+            "321 321 321",
+            "456 123 456",
+            "147 258 369"
+        ],
+        minWPM: 10,
+        minAccuracy: 90,
+        layer: 4
+    },
+    18: {
+        name: "NUM Layer - Zero and All Digits",
+        description: "Add zero and practice all digits",
+        keys: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        exercises: [
+            "000 000 000",
+            "100 200 300",
+            "10 20 30 40 50",
+            "1234567890",
+            "0987654321",
+            "2024 2025 2026",
+            "1000 2000 3000"
+        ],
+        minWPM: 12,
+        minAccuracy: 90,
+        layer: 4
+    },
+    19: {
+        name: "NUM Layer - Brackets [ ]",
+        description: "Learn square brackets on NUM layer",
+        keys: ['[', ']', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+        exercises: [
+            "[ ] [ ] [ ]",
+            "[1] [2] [3]",
+            "[10] [20] [30]",
+            "[] [] []",
+            "[123] [456]",
+            "[0] [1] [2]"
+        ],
+        minWPM: 10,
+        minAccuracy: 85,
+        layer: 4
+    },
+    20: {
+        name: "NUM Layer - Math Operators",
+        description: "Learn = - on NUM layer",
+        keys: ['=', '-', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+        exercises: [
+            "= = = = =",
+            "- - - - -",
+            "1 = 1",
+            "2 - 1 = 1",
+            "5 - 3 = 2",
+            "10 - 5 = 5",
+            "100 = 100"
+        ],
+        minWPM: 10,
+        minAccuracy: 85,
+        layer: 4
+    },
+    21: {
+        name: "NUM Layer - Full Practice",
+        description: "Practice all NUM layer keys together",
+        keys: ['[', ']', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '=', '-', ';'],
+        exercises: [
+            "123 = 123",
+            "[1, 2, 3]",
+            "456 - 123 = 333",
+            "[0, 1, 2, 3]",
+            "2024-12-25",
+            "10 = 5 - -5",
+            "[100, 200, 300]"
+        ],
+        minWPM: 12,
+        minAccuracy: 85,
+        layer: 4
+    },
+    
+    // ==========================================
+    // Stage 10: Symbols (SYM layer) - Progressive
+    // ==========================================
+    22: {
+        name: "SYM Layer - Home Row ($, %, ^)",
+        description: "Learn home row symbols on SYM layer",
+        keys: ['$', '%', '^'],
+        exercises: [
+            "$$$ $$$ $$$",
+            "%%% %%% %%%",
+            "^^^ ^^^ ^^^",
+            "$%^ $%^ $%^",
+            "^%$ ^%$ ^%$",
+            "$$ %% ^^"
+        ],
+        minWPM: 8,
+        minAccuracy: 85,
+        layer: 5
+    },
+    23: {
+        name: "SYM Layer - Colon and Plus",
+        description: "Learn : and + on SYM layer",
+        keys: [':', '+', '$', '%', '^'],
+        exercises: [
+            "::: ::: :::",
+            "+++ +++ +++",
+            ": + : + :",
+            "$: %: ^:",
+            "$+ %+ ^+",
+            ": : : + + +"
+        ],
+        minWPM: 8,
+        minAccuracy: 85,
+        layer: 5
+    },
+    24: {
+        name: "SYM Layer - Top Row (&, *, curly braces)",
+        description: "Learn &, *, { and } on SYM layer",
+        keys: ['&', '*', '{', '}', '$', '%', '^', ':', '+'],
+        exercises: [
+            "&&& &&& &&&",
+            "*** *** ***",
+            "{ } { } { }",
+            "{} {} {}",
+            "& * & *",
+            "{ & } { * }",
+            "{$} {%} {^}"
+        ],
+        minWPM: 8,
+        minAccuracy: 85,
+        layer: 5
+    },
+    25: {
+        name: "SYM Layer - Parentheses",
+        description: "Learn ( and ) on SYM layer",
+        keys: ['(', ')', '{', '}', '&', '*'],
+        exercises: [
+            "( ) ( ) ( )",
+            "() () ()",
+            "(()) (())",
+            "({}) ({})",
+            "(*) (&)",
+            "(( )) {{ }}"
+        ],
+        minWPM: 8,
+        minAccuracy: 85,
+        layer: 5
+    },
+    26: {
+        name: "SYM Layer - Bottom Row (!, @, #)",
+        description: "Learn !, @ and # on SYM layer",
+        keys: ['!', '@', '#', '$', '%', '^'],
+        exercises: [
+            "!!! !!! !!!",
+            "@@@ @@@ @@@",
+            "### ### ###",
+            "!@# !@# !@#",
+            "#@! #@! #@!",
+            "!@#$%^"
+        ],
+        minWPM: 8,
+        minAccuracy: 85,
+        layer: 5
+    },
+    27: {
+        name: "SYM Layer - Tilde and Pipe",
+        description: "Learn ~ and | on SYM layer",
+        keys: ['~', '|', '!', '@', '#'],
+        exercises: [
+            "~~~ ~~~ ~~~",
+            "||| ||| |||",
+            "~ | ~ | ~",
+            "~! ~@ ~#",
+            "| | | |",
+            "~|~ ~|~"
+        ],
+        minWPM: 8,
+        minAccuracy: 85,
+        layer: 5
+    },
+    28: {
+        name: "SYM Layer - Underscore",
+        description: "Learn _ on SYM layer",
+        keys: ['_', '(', ')', '{', '}'],
+        exercises: [
+            "___ ___ ___",
+            "_ _ _ _ _",
+            "(_) (_) (_)",
+            "{_} {_} {_}",
+            "__init__",
+            "my_var my_func"
+        ],
+        minWPM: 8,
+        minAccuracy: 85,
+        layer: 5
+    },
+    29: {
+        name: "SYM Layer - Full Practice",
+        description: "Practice all SYM layer symbols",
+        keys: ['{', '}', '&', '*', '(', ')', ':', '$', '%', '^', '+', '~', '!', '@', '#', '|', '_'],
+        exercises: [
+            "!@#$%^&*()",
             "{ } ( ) [ ]",
-            "! @ # $ %",
-            "^ & * ( )",
-            "() {} []",
-            "!= == ===",
-            "&& || !",
-            "{ key: value }"
+            "~!@#$%^&*",
+            "::: +++ ___",
+            "() {} ||",
+            "^_^ :) :("
         ],
         minWPM: 10,
         minAccuracy: 85,
         layer: 5
     },
     
-    // Stage 11: Navigation (NAV layer)
-    17: {
+    // ==========================================
+    // Stage 11: Programming with Symbols
+    // ==========================================
+    30: {
+        name: "Programming - Variables",
+        description: "Practice variable naming with symbols",
+        keys: [],
+        exercises: [
+            "my_var = 10",
+            "$price = 100",
+            "@user_name",
+            "#define MAX",
+            "const_VALUE",
+            "_private_var"
+        ],
+        minWPM: 12,
+        minAccuracy: 85,
+        layer: 5
+    },
+    31: {
+        name: "Programming - Functions",
+        description: "Practice function syntax with symbols",
+        keys: [],
+        exercises: [
+            "func()",
+            "test(1, 2, 3)",
+            "add(a, b)",
+            "() => {}",
+            "function() {}",
+            "def __init__():"
+        ],
+        minWPM: 12,
+        minAccuracy: 85,
+        layer: 5
+    },
+    32: {
+        name: "Programming - Objects & Arrays",
+        description: "Practice object and array syntax",
+        keys: [],
+        exercises: [
+            "{ key: value }",
+            "[1, 2, 3, 4, 5]",
+            "{ a: 1, b: 2 }",
+            "arr[0] = 10",
+            "obj.prop = 5",
+            "{ x: [1, 2] }"
+        ],
+        minWPM: 12,
+        minAccuracy: 85,
+        layer: 5
+    },
+    33: {
+        name: "Programming - Operators",
+        description: "Practice programming operators",
+        keys: [],
+        exercises: [
+            "a == b",
+            "x != y",
+            "a && b",
+            "x || y",
+            "!flag",
+            "a >= b",
+            "x <= y",
+            "i++ j--"
+        ],
+        minWPM: 12,
+        minAccuracy: 85,
+        layer: 5
+    },
+    34: {
+        name: "Programming - Mixed",
+        description: "Practice real code snippets",
+        keys: [],
+        exercises: [
+            "if (x > 0) { }",
+            "for (i = 0; i < 10; i++)",
+            "arr.map((x) => x * 2)",
+            "const { a, b } = obj",
+            "import { x } from 'y'",
+            "export default App"
+        ],
+        minWPM: 15,
+        minAccuracy: 85,
+        layer: 5
+    },
+    
+    // Stage 12: Navigation (NAV layer)
+    35: {
         name: "Navigation - NAV Layer",
         description: "Practice using the NAV layer (hold Space)",
         keys: [],

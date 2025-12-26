@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/kumamuk-git
     - name: mctechnology17
       url-base: https://github.com/mctechnology17
+    - name: urob
+      url-base: https://github.com/urob
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -17,5 +19,8 @@ manifest:
     - name: zmk-nice-oled
       remote: mctechnology17
       revision: main
+    - name: zmk-unicode
+      remote: urob
+      revision: v0.3
   self:
     path: config

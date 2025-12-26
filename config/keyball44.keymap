@@ -10,9 +10,15 @@
 
 #include <behaviors/mouse_keys.dtsi>
 #include <behaviors.dtsi>
+#include <behaviors/unicode.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/mouse.h>
+
+// Configure Unicode for macOS
+&uc {
+    default-mode = <UC_MODE_MACOS>;
+};
 
 &lt {
     tapping-term-ms = <240>;
@@ -238,7 +244,7 @@
             bindings = <
 &none   &kp LBRC   &kp AMPS  &kp ASTRK  &kp LPAR   &kp RBRC               &none   &none      &none      &none     &none     &none
 &none   &kp COLON  &kp DLLR  &kp PRCNT  &kp CARET  &kp PLUS               &none   &kp RSHFT  &kp RCTRL  &kp RALT  &kp RGUI  &none
-&none   &kp TILDE  &kp EXCL  &kp AT     &kp HASH   &kp PIPE               &none   &none      &none      &none     &none     &none
+&none   &uc 0x7E 0  &kp EXCL  &kp AT     &kp HASH   &kp PIPE               &none   &none      &none      &none     &none     &none
 &none   &none      &kp LPAR  &kp RPAR   &kp UNDER               &none  &none                                                &none
             >;
         };

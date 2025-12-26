@@ -90,15 +90,78 @@ function generateHandHTML(isLeft = true, highlightedFinger = null) {
     `;
 }
 
-// Get finger for a character
+// Get finger for a character (works for BASE and layer characters)
 function getFingerForChar(char) {
     const lowerChar = char.toLowerCase();
-    return FINGER_MAP[lowerChar] !== undefined ? FINGER_MAP[lowerChar] : null;
+    
+    // First check BASE layer mapping
+    if (FINGER_MAP[lowerChar] !== undefined) {
+        return FINGER_MAP[lowerChar];
+    }
+    
+    // For layer characters, get the key position and derive finger from that
+    const layer = getLayerForChar(char);
+    if (layer !== 0) {
+        const pos = getKeyPositionForChar(char);
+        if (pos !== undefined) {
+            return getFingerForPosition(pos);
+        }
+    }
+    
+    return null;
 }
 
 // Check if character uses left hand
 function isLeftHand(finger) {
     return finger !== null && finger >= 0 && finger <= 4;
+}
+
+// Layer-specific character mappings (from app.js)
+const SYM_CHARS = ['{', '&', '*', '(', '}', ':', '$', '%', '^', '+', '~', '!', '@', '#', '|', '_', ')', '"'];
+const NUM_CHARS = ['[', '7', '8', '9', ']', ';', '4', '5', '6', '=', '`', '1', '2', '3', '\\', '.', '0', '-'];
+
+// Layer activation key positions (thumb keys on BASE layer)
+const LAYER_ACTIVATION_KEYS = {
+    5: 41,  // SYM layer -> ENT key at position 41
+    4: 42,  // NUM layer -> BSPC key at position 42
+    1: 39,  // NAV layer -> SPC key at position 39
+    3: 38,  // MEDIA layer -> ESC key at position 38
+    6: 43,  // FUN layer -> DEL key at position 43
+    2: 40   // MOUSE/SCROLL layer -> TAB key at position 40
+};
+
+// Get which layer a character requires (0 = BASE, 5 = SYM, 4 = NUM, etc.)
+function getLayerForChar(char) {
+    if (SYM_CHARS.includes(char)) return 5; // SYM
+    if (NUM_CHARS.includes(char)) return 4; // NUM
+    // BASE layer characters are handled by CHAR_TO_POS
+    return 0;
+}
+
+// Get the key position for a character on its layer
+function getKeyPositionForChar(char) {
+    const layer = getLayerForChar(char);
+    if (layer === 5) {
+        // SYM layer positions
+        const symMap = {
+            '{': 1, '&': 2, '*': 3, '(': 4, '}': 5,
+            ':': 13, '$': 14, '%': 15, '^': 16, '+': 17,
+            '~': 25, '!': 26, '@': 27, '#': 28, '|': 29,
+            '(': 38, ')': 39, '_': 40
+        };
+        return symMap[char];
+    } else if (layer === 4) {
+        // NUM layer positions
+        const numMap = {
+            '[': 1, '7': 2, '8': 3, '9': 4, ']': 5,
+            ';': 13, '4': 14, '5': 15, '6': 16, '=': 17,
+            '`': 25, '1': 26, '2': 27, '3': 28, '\\': 29,
+            '.': 38, '0': 39, '-': 40
+        };
+        return numMap[char];
+    }
+    // BASE layer - use CHAR_TO_POS from app.js
+    return CHAR_TO_POS[char.toUpperCase()] || CHAR_TO_POS[char];
 }
 
 // Practice state
@@ -112,7 +175,11 @@ let practiceState = {
     errors: 0,
     totalChars: 0,
     correctChars: 0,
-    history: [] // Track each keystroke
+    history: [], // Track each keystroke
+    // Layer transition state
+    awaitingLayerHold: false,  // true when waiting for user to hold layer key
+    targetLayer: 0,            // which layer we need to switch to
+    targetChar: null           // the actual character to type after layer switch
 };
 
 // Stats tracking (persisted to localStorage)
@@ -637,6 +704,16 @@ function renderTypingTestUI() {
     // Get next character for hand visualization
     const nextChar = pos < text.length ? text[pos] : null;
     
+    // Check if next character requires a layer (just for display)
+    const targetLayer = nextChar ? getLayerForChar(nextChar) : 0;
+    
+    // Build hint text - show layer info if needed
+    let hintText = 'Type the text above. The hands show which finger to use.';
+    if (nextChar && targetLayer !== 0) {
+        const layerName = LAYERS[targetLayer]?.name || 'layer';
+        hintText = `Hold <strong>${layerName}</strong> + <strong>${nextChar}</strong>`;
+    }
+    
     const html = `
         <div class="typing-test-ui">
             <div class="practice-header">
@@ -667,14 +744,14 @@ function renderTypingTestUI() {
             </div>
             
             <div class="keyboard-hint">
-                Type the text above. The hands show which finger to use.
+                ${hintText}
             </div>
         </div>
     `;
     
     container.innerHTML = html;
     
-    // Highlight the next key on the keyboard
+    // Highlight the next key on the keyboard (and layer key if needed)
     highlightNextKey(text[pos]);
     
     // Update hands beside keyboard
@@ -979,6 +1056,22 @@ function renderPracticeUI() {
     // Get next character for hand visualization
     const nextChar = pos < text.length ? text[pos] : null;
     
+    // Check if next character requires a layer (just for display purposes)
+    const targetLayer = nextChar ? getLayerForChar(nextChar) : 0;
+    
+    // Build hint text - show layer info if needed
+    let hintText = '';
+    if (pos < text.length) {
+        if (targetLayer !== 0) {
+            const layerName = LAYERS[targetLayer]?.name || 'layer';
+            hintText = `Hold <strong>${layerName}</strong> + <strong>${text[pos]}</strong>`;
+        } else {
+            hintText = `Next key: <strong>${text[pos] === ' ' ? 'Space' : text[pos]}</strong>`;
+        }
+    } else {
+        hintText = 'Complete!';
+    }
+    
     const html = `
         <div class="practice-ui">
             <div class="practice-header">
@@ -1009,7 +1102,7 @@ function renderPracticeUI() {
             </div>
             
             <div class="practice-hint">
-                ${pos < text.length ? `Next key: <strong>${text[pos] === ' ' ? 'Space' : text[pos]}</strong>` : 'Complete!'}
+                ${hintText}
             </div>
             
             <div class="keyboard-hint">
@@ -1020,25 +1113,103 @@ function renderPracticeUI() {
     
     container.innerHTML = html;
     
-    // Highlight the next key on the keyboard
+    // Highlight the next key on the keyboard (and layer key if needed)
     highlightNextKey(text[pos]);
     
     // Update hands beside keyboard
     updateHandsOnKeyboard(nextChar);
 }
 
+// Update hands to show layer key (right thumb)
+function updateHandsForLayerKey() {
+    // Remove existing hand panels
+    document.querySelectorAll('.hand-panel').forEach(el => el.remove());
+    
+    const keyboard = document.querySelector('.keyboard');
+    if (!keyboard) return;
+    
+    // Create wrapper if it doesn't exist
+    let wrapper = document.querySelector('.keyboard-with-hands');
+    if (!wrapper) {
+        wrapper = document.createElement('div');
+        wrapper.className = 'keyboard-with-hands';
+        keyboard.parentNode.insertBefore(wrapper, keyboard);
+        wrapper.appendChild(keyboard);
+    }
+    
+    // Add left hand (inactive)
+    const leftHandDiv = document.createElement('div');
+    leftHandDiv.innerHTML = `
+        <div class="hand-panel hand-panel-left">
+            ${generateHandHTML(true, null)}
+            <div class="finger-indicator-small" style="--finger-color: #64748b">
+                <span class="finger-name">-</span>
+            </div>
+        </div>
+    `;
+    wrapper.insertBefore(leftHandDiv.firstElementChild, keyboard);
+    
+    // Add right hand with thumb highlighted
+    const rightHandDiv = document.createElement('div');
+    rightHandDiv.innerHTML = `
+        <div class="hand-panel hand-panel-right">
+            ${generateHandHTML(false, 5)}
+            <div class="finger-indicator-small active" style="--finger-color: ${FINGER_COLORS[5]}">
+                <span class="finger-name">Right Thumb</span>
+            </div>
+        </div>
+    `;
+    wrapper.appendChild(rightHandDiv.firstElementChild);
+}
+
 // Highlight the next key to press on the keyboard display
+// For layer characters: shows both the layer activation key AND the target key on that layer
 function highlightNextKey(char) {
     // Remove previous hints and color coding
     document.querySelectorAll('.key.hint').forEach(k => {
-        k.classList.remove('hint');
+        k.classList.remove('hint', 'hint-layer');
         k.style.removeProperty('--hint-color');
     });
     
     if (!char) return;
     
-    // Find the key position for this character
-    // Space stays as space, other chars get uppercased
+    const targetLayer = getLayerForChar(char);
+    
+    // If character requires a non-BASE layer, show both layer key and target key
+    if (targetLayer !== 0) {
+        // Switch to the target layer to show the key
+        if (typeof switchToLayer === 'function') {
+            switchToLayer(targetLayer);
+        }
+        
+        // Highlight the layer activation key (thumb key)
+        const layerKeyPos = LAYER_ACTIVATION_KEYS[targetLayer];
+        if (layerKeyPos !== undefined) {
+            const layerKeyEl = document.querySelector(`.key[data-pos="${layerKeyPos}"]`);
+            if (layerKeyEl) {
+                layerKeyEl.classList.add('hint', 'hint-layer');
+                layerKeyEl.style.setProperty('--hint-color', FINGER_COLORS[5]); // Right thumb
+            }
+        }
+        
+        // Also highlight the target key on the layer
+        const pos = getKeyPositionForChar(char);
+        if (pos !== undefined) {
+            const keyEl = document.querySelector(`.key[data-pos="${pos}"]`);
+            if (keyEl) {
+                keyEl.classList.add('hint');
+                // Apply finger color based on position
+                const finger = getFingerForPosition(pos);
+                if (finger !== null && FINGER_COLORS[finger]) {
+                    keyEl.style.setProperty('--hint-color', FINGER_COLORS[finger]);
+                }
+            }
+        }
+        console.log('[highlightNextKey] Layer char:', char, 'layer:', targetLayer, 'layerKey:', layerKeyPos, 'targetPos:', pos);
+        return;
+    }
+    
+    // BASE layer character - original logic
     const lookupChar = char === ' ' ? ' ' : char.toUpperCase();
     let pos = CHAR_TO_POS[lookupChar];
     
@@ -1061,6 +1232,25 @@ function highlightNextKey(char) {
     } else {
         console.log('[highlightNextKey] pos undefined for char:', char);
     }
+}
+
+// Get finger for a key position (for layer keys)
+function getFingerForPosition(pos) {
+    const posToFinger = {
+        // Top row
+        1: 0, 2: 1, 3: 2, 4: 3, 5: 3,
+        6: 6, 7: 6, 8: 7, 9: 8, 10: 9,
+        // Home row
+        13: 0, 14: 1, 15: 2, 16: 3, 17: 3,
+        18: 6, 19: 6, 20: 7, 21: 8, 22: 9,
+        // Bottom row
+        25: 0, 26: 1, 27: 2, 28: 3, 29: 3,
+        30: 6, 31: 6, 32: 7, 33: 8, 34: 9,
+        // Thumb keys
+        38: 4, 39: 4, 40: 4,
+        41: 5, 42: 5, 43: 5
+    };
+    return posToFinger[pos] !== undefined ? posToFinger[pos] : null;
 }
 
 // Apply finger colors to all keyboard keys
@@ -1129,26 +1319,50 @@ function removePracticeListeners() {
     document.addEventListener('keydown', appKeyDown);
 }
 
+// Map of layer signal keys to layer numbers (F13-F20 sent by ZMK when layer is held)
+const LAYER_SIGNAL_KEYS_PRACTICE = {
+    'F13': 1,  // NAV
+    'F16': 3,  // MEDIA
+    'F17': 2,  // MOUSE
+    'F18': 5,  // SYM
+    'F19': 4,  // NUM
+    'F20': 6   // FUN
+};
+
 // Handle keydown during practice
 function handlePracticeKeyDown(e) {
     if (!practiceState.active) return;
     
+    const text = practiceState.currentText;
+    const pos = practiceState.currentPosition;
+    
+    // Check for layer signal keys (F13-F20 from ZMK macros when layer is held)
+    if (LAYER_SIGNAL_KEYS_PRACTICE[e.key] !== undefined) {
+        const signalLayer = LAYER_SIGNAL_KEYS_PRACTICE[e.key];
+        console.log('[LAYER SIGNAL] Received:', e.key, '-> layer', signalLayer);
+        
+        // Layer signals are just informational - switch display to that layer
+        if (typeof switchToLayer === 'function') {
+            switchToLayer(signalLayer);
+        }
+        return; // Don't process layer signals as character input
+    }
+    
     // Ignore modifier keys (home row mods send these)
-    const ignoredKeys = ['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Tab', 'Escape', 
-                         'F13', 'F14', 'F15', 'F16', 'F17', 'F18', 'F19', 'F20'];
+    const ignoredKeys = ['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Tab', 'Escape'];
     if (ignoredKeys.includes(e.key)) {
         return;
     }
     
     e.preventDefault();
     
-    const text = practiceState.currentText;
-    const pos = practiceState.currentPosition;
-    
     console.log('[KEYDOWN] text:', JSON.stringify(text), 'pos:', pos, 'expected char:', text[pos]);
     
     // Ignore if already complete
     if (pos >= text.length) return;
+    
+    // Layer hold is just a visual guide - we still accept character input
+    // If user is holding the layer and types the character, it works fine
     
     // Start timer on first keypress
     if (!practiceState.startTime) {

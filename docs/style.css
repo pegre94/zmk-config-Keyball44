@@ -667,6 +667,52 @@ h1 {
     animation: hint-pulse 0.8s ease-in-out infinite alternate;
 }
 
+/* Layer key hint - special styling for "hold this layer key" indication */
+.key.hint.hint-layer {
+    --hint-color: #3b82f6;
+    background: linear-gradient(145deg, #60a5fa 0%, #3b82f6 100%) !important;
+    box-shadow: 
+        0 4px 0 rgba(0, 0, 0, 0.4),
+        0 6px 10px rgba(0, 0, 0, 0.3),
+        0 0 25px #3b82f6,
+        inset 0 0 10px rgba(255, 255, 255, 0.2) !important;
+    animation: layer-hint-pulse 0.6s ease-in-out infinite alternate;
+}
+
+/* Add a "HOLD" indicator on layer keys */
+.key.hint.hint-layer::after {
+    content: "HOLD";
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    font-weight: bold;
+    color: #3b82f6;
+    background: #1e293b;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #3b82f6;
+    white-space: nowrap;
+}
+
+@keyframes layer-hint-pulse {
+    from { 
+        box-shadow: 
+            0 4px 0 rgba(0, 0, 0, 0.4), 
+            0 6px 10px rgba(0, 0, 0, 0.3), 
+            0 0 15px #3b82f6,
+            inset 0 0 10px rgba(255, 255, 255, 0.1); 
+    }
+    to { 
+        box-shadow: 
+            0 4px 0 rgba(0, 0, 0, 0.4), 
+            0 6px 10px rgba(0, 0, 0, 0.3), 
+            0 0 35px #3b82f6,
+            inset 0 0 15px rgba(255, 255, 255, 0.3); 
+    }
+}
+
 @keyframes hint-pulse {
     from { 
         box-shadow: 
